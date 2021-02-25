@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="title">yuwei-website{{ ip }}</h1>
         <div class="links">
-            <nuxt-link to="/about">about</nuxt-link>
+            <nuxt-link :to="{ path: '/about', query: { id: 1, name: 'yuwei', age: 20 } }">about</nuxt-link>
             <nuxt-link to="/news">news</nuxt-link>
         </div>
     </div>
