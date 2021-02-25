@@ -1,49 +1,32 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">yuwei-website</h1>
-      <div class="links">
-        <nuxt-link to="/about">about</nuxt-link>
-        <nuxt-link to="/news">news</nuxt-link>
-      </div>
+    <div class="container">
+        <h1 class="title">yuwei-website{{ ip }}</h1>
+        <div class="links">
+            <nuxt-link to="/about">about</nuxt-link>
+            <nuxt-link to="/news">news</nuxt-link>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-export default {}
+import { getCode } from '@/api'
+
+export default {
+    asyncData(context) {
+        return getCode()
+            .then(res => {
+                return { ip: res.data.message }
+            })
+            .catch(err => context.error({ err, statusCode: 404, message: '页面未找到或无数据' }))
+    },
+    data() {
+        return { ip: '' }
+    }
+}
 </script>
 
 <style>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+    padding-top: 200px;
 }
 </style>
